@@ -1,38 +1,43 @@
 import './style.css'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<header class="site-header">
-  <nav class="site-nav" aria-label="Main navigation">
-    <a class="site-nav-link is-active" href="#works" aria-current="page">WORKS</a>
-    <a class="site-nav-link" href="#journal">JOURNAL</a>
-    <a class="site-nav-link" href="#contact">CONTACT</a>
-  </nav>
-</header>
-<main id="works" class="works-grid" aria-label="작업 목록">
-  ${Array.from({ length: 3 }, (_, index) => `
-    <article class="work-card" aria-label="작업 ${index + 1} 이미지 준비 중">
-      <div class="work-placeholder">
-        <span class="work-number">${String(index + 1).padStart(2, '0')}</span>
-      </div>
-    </article>
-  `).join('')}
-</main>
-`
+const app = document.querySelector<HTMLDivElement>('#app')!
+const firstWorkImage = `${import.meta.env.BASE_URL}works/first.jpg`
 
-const navigationLinks = document.querySelectorAll<HTMLAnchorElement>('.site-nav-link')
-
-function updateNavigation() {
-  const selected = ['#works', '#journal', '#contact'].includes(window.location.hash)
+function render() {
+  const detail = window.location.hash === '#works/first'
+  const selected = window.location.hash === '#journal' || window.location.hash === '#contact'
     ? window.location.hash
     : '#works'
 
-  navigationLinks.forEach((link) => {
-    const active = link.hash === selected
-    link.classList.toggle('is-active', active)
-    if (active) link.setAttribute('aria-current', 'page')
-    else link.removeAttribute('aria-current')
-  })
+  app.innerHTML = `
+    <header class="site-header">
+      <nav class="site-nav" aria-label="Main navigation">
+        ${[['#works', 'WORKS'], ['#journal', 'JOURNAL'], ['#contact', 'CONTACT']].map(([href, label]) => `
+          <a class="site-nav-link${selected === href ? ' is-active' : ''}" href="${href}"${selected === href ? ' aria-current="page"' : ''}>${label}</a>
+        `).join('')}
+      </nav>
+    </header>
+    ${detail ? `
+      <main class="work-detail" aria-label="첫 번째 작업">
+        <img class="work-detail-image" src="${firstWorkImage}" alt="하늘색 fussy 제품" width="236" height="236" />
+      </main>
+    ` : `
+      <main id="works" class="works-grid" aria-label="작업 목록">
+        <a class="work-card work-card-link" href="#works/first" aria-label="첫 번째 작업 보기">
+          <div class="work-placeholder"><span class="work-number">01</span></div>
+        </a>
+        ${[2, 3].map((number) => `
+          <article class="work-card" aria-label="작업 ${number} 이미지 준비 중">
+            <div class="work-placeholder"><span class="work-number">${String(number).padStart(2, '0')}</span></div>
+          </article>
+        `).join('')}
+      </main>
+    `}
+  `
 }
 
-window.addEventListener('hashchange', updateNavigation)
-updateNavigation()
+window.addEventListener('hashchange', () => {
+  render()
+  window.scrollTo(0, 0)
+})
+render()
