@@ -1,7 +1,7 @@
 import './style.css'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
-const firstWorkImage = `${import.meta.env.BASE_URL}works/heart-handwash.png`
+const firstWorkImage = `${import.meta.env.BASE_URL}works/heart-handwash-clean.png`
 
 function render() {
   const detail = window.location.hash === '#works/first'
