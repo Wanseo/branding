@@ -107,7 +107,7 @@ body {
 
 .work-detail-image {
   display: block;
-  width: min(70%, 360px);
+  width: min(90%, 720px);
   height: auto;
   margin: 0 auto;
   object-fit: contain;
