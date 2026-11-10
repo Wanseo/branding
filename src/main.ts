@@ -8,6 +8,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <a class="site-nav-link" href="#contact">CONTACT</a>
   </nav>
 </header>
+<main id="works" class="works-grid" aria-label="작업 목록">
+  ${Array.from({ length: 3 }, (_, index) => `
+    <article class="work-card" aria-label="작업 ${index + 1} 이미지 준비 중">
+      <div class="work-placeholder">
+        <span class="work-number">${String(index + 1).padStart(2, '0')}</span>
+      </div>
+    </article>
+  `).join('')}
+</main>
 `
 
 const navigationLinks = document.querySelectorAll<HTMLAnchorElement>('.site-nav-link')
