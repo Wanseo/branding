@@ -1,7 +1,7 @@
 import './style.css'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
-const firstWorkImage = `${import.meta.env.BASE_URL}works/heart-handwash-clean.png`
+const firstWorkImage = `${import.meta.env.BASE_URL}works/heart-handwash-snow.png`
 
 function render() {
   const detail = window.location.hash === '#works/first'
@@ -19,7 +19,7 @@ function render() {
     </header>
     ${detail ? `
       <main class="work-detail" aria-label="첫 번째 작업">
-        <img class="work-detail-image" src="${firstWorkImage}" alt="로고 없는 매끈한 하트형 튜브 핸드워시" width="1087" height="1447" />
+        <img class="work-detail-image" src="${firstWorkImage}" alt="눈 속에 살짝 파묻힌 로고 없는 하트형 핸드워시" width="1088" height="1446" />
       </main>
     ` : `
       <main id="works" class="works-grid" aria-label="작업 목록">
