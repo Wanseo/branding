@@ -15,3 +15,9 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+## Deployment
+
+Push to `main` to build and deploy automatically with GitHub Actions.
+
+Site: https://wanseo.github.io/branding/
